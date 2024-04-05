@@ -16,9 +16,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+import { createStoreAction } from "@/actions/store-action";
 
 export const StoreModal = () => {
   const storeModal = useStoreModal();
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof StoreSchema>>({
     resolver: zodResolver(StoreSchema),
@@ -28,7 +31,15 @@ export const StoreModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof StoreSchema>) => {
-    console.log(values);
+    startTransition(() => {
+      createStoreAction(values).then((res) => {
+        if (res.error) {
+          console.log(res.error);
+        } else {
+          console.log(res.success);
+        }
+      });
+    });
   };
 
   return (
