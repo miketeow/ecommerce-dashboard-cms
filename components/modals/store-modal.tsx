@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { createStoreAction } from "@/actions/store-action";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const StoreModal = () => {
   const storeModal = useStoreModal();

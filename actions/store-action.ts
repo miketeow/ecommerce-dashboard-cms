@@ -2,6 +2,7 @@
 import { prismadb } from "@/lib/prismadb";
 import { StoreSchema } from "@/schema";
 import { auth } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 import * as z from "zod";
 
 export const createStoreAction = async (
@@ -27,5 +28,6 @@ export const createStoreAction = async (
     },
   });
 
+  revalidatePath("/");
   return { success: `Store ${name} created successfully` };
 };
