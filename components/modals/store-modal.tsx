@@ -18,10 +18,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { createStoreAction } from "@/actions/store-action";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const StoreModal = () => {
+  const router = useRouter();
   const storeModal = useStoreModal();
   const [isPending, startTransition] = useTransition();
 
@@ -36,9 +37,10 @@ export const StoreModal = () => {
     startTransition(() => {
       createStoreAction(values).then((res) => {
         if (res.error) {
-          console.log(res.error);
+          toast.error(res.error);
         } else {
-          console.log(res.success);
+          toast.success(res.success);
+          router.push(`/dashboard/${res.data}`);
         }
       });
     });
