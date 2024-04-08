@@ -75,7 +75,7 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
                 <CommandItem
                   key={store.value}
                   onSelect={() => onStoreSelect(store)}
-                  className="text-sm hover:bg-green-400"
+                  className="text-sm"
                 >
                   <FaStore className="mr-2 h-4 w-4" />
                   {store.label}

@@ -13,6 +13,11 @@ const MainNav = ({
   const params = useParams();
   const routes = [
     {
+      href: `/dashboard/${params.storeId}`,
+      label: "Overview",
+      active: pathname === `/dashboard/${params.storeId}`,
+    },
+    {
       href: `/dashboard/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/dashboard/${params.storeId}/settings`,
