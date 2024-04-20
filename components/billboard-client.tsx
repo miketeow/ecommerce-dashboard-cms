@@ -5,15 +5,23 @@ import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { Separator } from "@/components/ui/separator";
 import { useParams, useRouter } from "next/navigation";
+import {
+  BillboardColumn,
+  columns,
+} from "@/app/dashboard/[storeId]/billboards/columns";
+import { DataTable } from "@/components/ui/data-table";
 
-const BillboardClient = () => {
+type BillboardClientProps = {
+  data: BillboardColumn[];
+};
+const BillboardClient = ({ data }: BillboardClientProps) => {
   const router = useRouter();
   const params = useParams();
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title="Billboards (0)"
+          title={`Billboards (${data.length})`}
           description="Manage billboards for your store"
         />
         <Button
@@ -26,6 +34,7 @@ const BillboardClient = () => {
         </Button>
       </div>
       <Separator />
+      <DataTable searchKey="label" columns={columns} data={data} />
     </>
   );
 };
